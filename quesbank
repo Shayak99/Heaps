@@ -1,3 +1,113 @@
+Heap 
+
+A Heap is a special Tree-based data structure which is an almost complete tree that satisfies the heap property:
+
+in a max heap, for any given node C, if P is a parent node of C, then the key (the value) of P is greater than or equal to the key of C.
+In a min heap, the key of P is less than or equal to the key of C. The node at the "top" of the heap (with no parents) is called the root node.
+A common implementation of a heap is the binary heap, in which the tree is a binary tree.
+
+----------------------------------------------
+What is Priority Queue?
+
+A priority queue is a data structure that stores priorities (comparable values) and perhaps associated information. A priority queue is different from a "normal" queue, because instead of being a "first-in-first-out" data structure, values come out in order by priority. Think of a priority queue as a kind of bag that holds priorities. You can put one in, and you can take out the current highest priority.
+
+--------------------------------------
+
+Explain how Heap Sort works
+
+Heapsort is a comparison-based sorting algorithm. Heapsort can be thought of as an improved selection sort: like that algorithm, it divides its input into a sorted and an unsorted region, and it iteratively shrinks the unsorted region by extracting the largest element and moving that to the sorted region. The improvement consists of the use of a heap data structure rather than a linear-time search to find the maximum.
+
+A heap is a complete binary tree (every level filled as much as possible beginning at the left side of the tree) that follows this condition: the value of a parent element is always greater than the values of its left and right child elements. So, by taking advantage of this property, we can pop off the max of the heap repeatedly and establish a sorted array.
+
+In an array representation of a heap binary tree, this essentially means that for a parent element with an index of i, its value must be greater than its left child [2i+1] and right child [2i+2] (if it has one).
+
+The HeapSort steps are:
+
+Create a max heap from the unsorted list
+Swap the max element, located at the root, with the last element
+Re-heapify or rebalance the array again to establish the max heap order. The new root is likely not in its correct place.
+Repeat Steps 2–3 until complete (when the list size is 1)
+
+------------------------------------
+
+Name some ways to implement Priority Queue
+
+Priority Queue abstract data type (ADT) can be implemented using other data structures (including Heaps) like:
+
+Unordered Array
+Unordered List
+Ordered Array
+Ordered List
+Binary Search Tree (BST)
+Balanced Binary Search Tree (AVL-tree)
+Binary heap
+
+--------------------------------------
+
+Suppose we are sorting an array of eight integers using heapsort, and we have just finished some heapify (either maxheapify or minheapify) operations. The array now looks like this: 16 14 15 10 12 27 28 How many heapify operations have been performed on root of heap?
+
+In Heapsort, we first build a heap, then we do following operations till the heap size becomes 1. a) Swap the root with last element b) Call heapify for root c) reduce the heap size by 1. In this question, it is given that heapify has been called few times and we see that last two elements in given array are the 2 maximum elements in array. So situation is clear, it is maxheapify whic has been called 2 times.
+
+-------------------------------------------------------
+
+Connect `n` ropes with minimal cost
+Given n ropes of different lengths, connect them into a single rope with minimum cost. Assume that the cost to connect two ropes is the same as the sum of their lengths.
+
+Input:  [5, 4, 2, 8]
+ 
+Output: The minimum cost is 36
+  
+[5, 4, 2, 8] –> First, connect ropes of lengths 4 and 2 that will cost 6.
+[5, 6, 8]    –> Next, connect ropes of lengths 5 and 6 that will cost 11.
+[11, 8]      –> Finally, connect the remaining two ropes that will cost 19.
+ 
+Therefore, the total cost for connecting all ropes is 6 + 11 + 19 = 36.
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
+ 
+class Main
+{
+    // Function to calculate the minimum cost to join `n` ropes into a single rope
+    public static int findMinCost(List<Integer> prices)
+    {
+        // create a min-heap using `PriorityQueue` class from elements of the list
+        PriorityQueue<Integer> pq = new PriorityQueue<>(prices);
+ 
+        // keep track of the minimum cost so far
+        int cost = 0;
+ 
+        // repeat till heap size is reduced to one
+        while (pq.size() > 1)
+        {
+            // Extract the top two elements from the min-heap
+            int x = pq.poll();
+            int y = pq.poll();
+ 
+            // calculate the cost of the extracted values
+            int sum = x + y;
+ 
+            // insert the cost back to the min-heap
+            pq.add(sum);
+ 
+            // update the minimum cost
+            cost += sum;
+        }
+ 
+        return cost;
+    }
+ 
+    public static void main(String[] args)
+    {
+        List<Integer> prices = Arrays.asList(5, 4, 2, 8);
+        System.out.println("The minimum cost is " + findMinCost(prices));
+    }
+}
+
+
+
+---------------------------------------
 Binary Heap
 
 A Binary Heap is a Binary Tree with following properties.
